@@ -1,15 +1,24 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <div>hello: {{ num }}</div>
+  <button @click="addOne()">add one</button>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<script lang="ts">
+import { hello, hi } from "@/helper/exportSample";
+import exportDefaultSample from "@/helper/exportDefaultSample";
+// Option API
+export default {
+  data() {
+    return {
+      num: 10,
+    };
+  },
+  methods: {
+    addOne() {
+      this.num++;
+    },
+  },
+};
+
+// composition api
+</script>
