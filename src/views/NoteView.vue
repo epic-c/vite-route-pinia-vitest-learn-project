@@ -3,7 +3,9 @@
 
   <ul>
     <li v-for="i in txts" :key="i.date">
-      {{ `${i.msg} ----- ${i.date}` }}
+      <h1>
+        {{ `${i.msg} ----- ${i.date}` }}
+      </h1>
     </li>
     <input type="text" v-model="word" @keydown.enter="enter()" />
   </ul>
