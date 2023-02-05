@@ -1,5 +1,5 @@
 <template>
-  <div>note</div>
+  <h1>note</h1>
 
   <ul>
     <li v-for="i in txts" :key="i.date">
