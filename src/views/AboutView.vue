@@ -1,14 +1,10 @@
 <template>
-  <!-- v-if -->
-  <div v-if="num < 8">num lt 8</div>
-  <div v-else-if="num < 10">num lt 10</div>
-  <div v-else>num gte 10</div>
-
-  <div v-show="num < 8">XXX</div>
   <!-- v-for -->
 
   <ul>
-    <li v-for="(el, index) in array" :key="el.id">{{ `${index} ${el}` }}</li>
+    <li v-for="(el, index) in array" :key="el.id">
+      {{ `${index} ${el.name}` }}
+    </li>
   </ul>
 
   <ul>
@@ -18,28 +14,21 @@
     </li>
   </ul>
 
-  <!-- v-model -->
+  <!-- TODO v-model -->
   <h1>v-model</h1>
-  <input type="date" v-model="modelValue" />
+  <input type="text" v-model="modelValue" />
   <div>value: {{ modelValue }}</div>
-  <!-- v-bind(:) -->
-  <div
-    :style="
-      num % 2 === 0 ? 'background-color: white' : 'background-color: black'
-    "
-  >
-    hello
-  </div>
-  <!-- v-on(@) -->
-  <button @click="addOneToNum()">add one</button>
-
-  <!-- data to template -->
-  <div>hello: {{ num }}</div>
+  <div>value * 2: {{ modelValueMul2 }}</div>
+  <AddOneVue :numStart="modelValue"></AddOneVue>
+  <LifeCycleVue></LifeCycleVue>
 </template>
 
 <script lang="ts">
 import { hello, hi } from "@/helper/exportSample";
 import exportDefaultSample from "@/helper/exportDefaultSample";
+
+import AddOneVue from "@/components/AddOne.vue";
+import LifeCycleVue from "@/components/LifeCycle.vue";
 // Option API
 export default {
   data() {
@@ -63,16 +52,19 @@ export default {
           PR: 60,
         },
       ],
-      num: 0,
     };
   },
-  methods: {
-    addOneToNum() {
-      this.num = this.addOne(this.num);
+  computed: {
+    // TODO 自動響應函數 computed
+    modelValueMul2() {
+      console.log("call");
+      return parseInt(this.modelValue) * 2;
     },
-    addOne(num: number) {
-      return num + 1;
-    },
+  },
+  components: {
+    // TODO 區塊 components
+    AddOneVue,
+    LifeCycleVue,
   },
 };
 
