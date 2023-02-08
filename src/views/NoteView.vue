@@ -7,7 +7,13 @@
         {{ `${i.msg} ----- ${i.date}` }}
       </h1>
       <span v-else>{{ `${i.msg} ----- ${i.date}` }}</span>
-      <input type="text">
+      <input
+        v-if="index === editIndex"
+        type="text"
+        v-model="editWord"
+        @keydown.enter="edit(index)"
+      />
+      <button @click="editButton(index)">edit</button>
       <button @click="del(index)">X</button>
     </li>
     <input type="text" v-model="word" @keydown.enter="enter()" />
@@ -32,6 +38,17 @@ export default {
     del(index: number) {
       this.txts.splice(index, 1);
     },
+    edit(index: number) {
+      this.txts.splice(index, 1, {
+        msg: this.editWord,
+        date: new Date(Date.now()).toLocaleString(),
+      });
+      this.editWord = "";
+      this.editIndex = -1;
+    },
+    editButton(index: number) {
+      this.editIndex = index;
+    },
   },
   data() {
     return {
@@ -42,6 +59,8 @@ export default {
         },
       ],
       word: "",
+      editWord: "",
+      editIndex: -1,
     };
   },
   computed: {
