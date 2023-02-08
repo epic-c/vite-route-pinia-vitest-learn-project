@@ -25,7 +25,17 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/NoteView.vue"),
     },
+    {
+      path: "/router/:userId",
+      name: "router",
+      props: true,
+      component: () => import("../views/RouterTestView.vue"),
+    },
   ],
 });
 
+router.beforeEach((to, from) => {
+  console.log(`to fullPath: ${to.fullPath}`);
+  console.log(`form full path: ${from.fullPath}`);
+});
 export default router;
