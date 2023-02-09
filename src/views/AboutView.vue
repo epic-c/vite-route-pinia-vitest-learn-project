@@ -19,7 +19,7 @@
   <input type="text" v-model="modelValue" />
   <div>value: {{ modelValue }}</div>
   <div>value * 2: {{ modelValueMul2 }}</div>
-  <AddOneVue :numStart="modelValue"></AddOneVue>
+  <AddOneVue @emit-sample="onSample" :numStart="modelValue"></AddOneVue>
   <LifeCycleVue></LifeCycleVue>
 </template>
 
@@ -59,6 +59,11 @@ export default {
     modelValueMul2() {
       console.log("call");
       return parseInt(this.modelValue) * 2;
+    },
+  },
+  methods: {
+    onSample(num: number) {
+      console.log(num);
     },
   },
   components: {

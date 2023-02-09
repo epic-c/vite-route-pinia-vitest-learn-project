@@ -21,6 +21,8 @@
     <!-- TODO data to template -->
     <div>hello: {{ num }}</div>
     <div>{{ numStart }}</div>
+
+    <button @click="emitSample()">Emit Sample</button>
   </div>
 </template>
 
@@ -39,6 +41,9 @@ export default {
     },
     addOne(num: number) {
       return num + 1;
+    },
+    emitSample() {
+      this.$emit("emit-sample", this.num);
     },
   },
 };
