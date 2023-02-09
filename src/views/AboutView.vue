@@ -62,8 +62,9 @@ export default {
     },
   },
   methods: {
-    onSample(num: number) {
-      console.log(num);
+    onSample(num: number, s: string) {
+      console.log(`num: ${num}`);
+      console.log(`s: ${s}`);
     },
   },
   components: {

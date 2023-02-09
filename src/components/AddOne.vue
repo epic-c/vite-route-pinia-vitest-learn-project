@@ -43,7 +43,7 @@ export default {
       return num + 1;
     },
     emitSample() {
-      this.$emit("emit-sample", this.num);
+      this.$emit("emit-sample", "test", this.num);
     },
   },
 };

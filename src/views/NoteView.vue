@@ -3,7 +3,7 @@
 
   <ul>
     <li v-for="i in srhResult" :key="i.date">
-      {{ `${i.msg} ----- ${i.date}`}}
+      {{ `${i.msg} ----- ${i.date}` }}
     </li>
     <input type="text" v-model="search" />
     <button @click="srh()">search</button>
