@@ -2,6 +2,14 @@
   <h1>note</h1>
 
   <ul>
+    <li v-for="i in srhResult" :key="i.date">
+      {{ `${i.msg} ----- ${i.date}`}}
+    </li>
+    <input type="text" v-model="search" />
+    <button @click="srh()">search</button>
+  </ul>
+  <hr />
+  <ul>
     <li v-for="(i, index) in txts" :key="i.date">
       <h1 v-if="i.msg === '!!!'">
         {{ `${i.msg} ----- ${i.date}` }}
@@ -49,18 +57,20 @@ export default {
     editButton(index: number) {
       this.editIndex = index;
     },
+    srh() {
+      this.srhResult = this.txts.filter((value) =>
+        value.msg.includes(this.search)
+      );
+    },
   },
   data() {
     return {
-      txts: [
-        {
-          msg: "start",
-          date: new Date(Date.now()).toLocaleString(),
-        },
-      ],
+      txts: [] as { msg: string; date: string }[],
       word: "",
       editWord: "",
       editIndex: -1,
+      search: "",
+      srhResult: [] as { msg: string; date: string }[],
     };
   },
   computed: {
