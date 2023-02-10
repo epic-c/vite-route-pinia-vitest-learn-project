@@ -26,9 +26,9 @@
   <!-- TODO Compoments (props, emit) -->
   <h2>Compoment</h2>
   <AddOneVue
-    style="background-color: cadetblue; width: 50%"
+    style="background-color: darkcyan; width: 50%"
     @emit-sample="onSample"
-    :props="100"
+    :props="value"
   ></AddOneVue>
 
   <hr />
@@ -45,6 +45,8 @@
 <script lang="ts">
 // TODO import other vue file
 import AddOneVue from "@/components/OptionApiSubComponent.vue";
+
+// TODO import other ts(js) file
 import { hello, hi } from "@/helper/exportSample";
 import exportDefaultSample from "@/helper/exportDefaultSample";
 
