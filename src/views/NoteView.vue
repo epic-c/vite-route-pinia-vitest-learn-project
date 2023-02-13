@@ -2,7 +2,7 @@
   <h1>note</h1>
 
   <ul>
-    <li v-for="i in srhResult" :key="i.date">
+    <li v-for="i in srhResult" :key="i.id">
       {{ `${i.msg} ----- ${i.date}` }}
     </li>
     <input type="text" v-model="search" />
@@ -10,7 +10,7 @@
   </ul>
   <hr />
   <ul>
-    <li v-for="(i, index) in txts" :key="i.date">
+    <li v-for="(i, index) in txts" :key="i.id">
       <h1 v-if="i.msg === '!!!'">
         {{ `${i.msg} ----- ${i.date}` }}
       </h1>
@@ -32,11 +32,13 @@
 </template>
 
 <script lang="ts">
+import { v4 as uuidv4 } from "uuid";
 export default {
   methods: {
     enter() {
       if (this.word.length > 0) {
         this.txts.push({
+          id: uuidv4(),
           msg: this.word,
           date: new Date(Date.now()).toLocaleString(),
         });
@@ -48,6 +50,7 @@ export default {
     },
     edit(index: number) {
       this.txts.splice(index, 1, {
+        id: this.txts[index].id,
         msg: this.editWord,
         date: new Date(Date.now()).toLocaleString(),
       });
@@ -65,12 +68,12 @@ export default {
   },
   data() {
     return {
-      txts: [] as { msg: string; date: string }[],
+      txts: [] as { id: string; msg: string; date: string }[],
       word: "",
       editWord: "",
       editIndex: -1,
       search: "",
-      srhResult: [] as { msg: string; date: string }[],
+      srhResult: [] as { id: string; msg: string; date: string }[],
     };
   },
   computed: {
