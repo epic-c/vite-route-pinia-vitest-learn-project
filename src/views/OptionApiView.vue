@@ -25,11 +25,11 @@
 
   <!-- TODO Compoments (props, emit) -->
   <h2>Compoment</h2>
-  <AddOneVue
+  <OptionApiSubComponent
     style="background-color: darkcyan; width: 50%"
     @emit-sample="onSample"
     :props="value"
-  ></AddOneVue>
+  ></OptionApiSubComponent>
 
   <hr />
 
@@ -44,7 +44,7 @@
 
 <script lang="ts">
 // TODO import other vue file
-import AddOneVue from "@/components/OptionApiSubComponent.vue";
+import OptionApiSubComponent from "@/components/OptionApiSubComponent.vue";
 
 // TODO import other ts(js) file
 import { hello, hi } from "@/helper/exportSample";
@@ -88,7 +88,7 @@ export default {
   },
   // TODO components 子組件
   components: {
-    AddOneVue,
+    OptionApiSubComponent,
   },
 };
 

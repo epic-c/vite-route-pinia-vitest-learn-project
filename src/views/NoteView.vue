@@ -33,6 +33,12 @@
 
 <script lang="ts">
 import { v4 as uuidv4 } from "uuid";
+
+interface MessageType {
+  id: string;
+  msg: string;
+  date: string;
+}
 export default {
   methods: {
     enter() {
@@ -68,12 +74,12 @@ export default {
   },
   data() {
     return {
-      txts: [] as { id: string; msg: string; date: string }[],
+      txts: [] as MessageType[],
       word: "",
       editWord: "",
       editIndex: -1,
       search: "",
-      srhResult: [] as { id: string; msg: string; date: string }[],
+      srhResult: [] as MessageType[],
     };
   },
   computed: {
