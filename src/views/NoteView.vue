@@ -5,34 +5,30 @@
     <li v-for="i in srhResult" :key="i.id">
       {{ `${i.msg} ----- ${i.date}` }}
     </li>
-    <input type="text" v-model="search" />
-    <button @click="srh()">search</button>
   </ul>
+  <input type="text" v-model="search" />
+  <button @click="srh()">search</button>
   <hr />
   <ul>
-    <li v-for="(i, index) in txts" :key="i.id">
-      <h1 v-if="i.msg === '!!!'">
-        {{ `${i.msg} ----- ${i.date}` }}
-      </h1>
-      <span v-else>{{ `${i.msg} ----- ${i.date}` }}</span>
-      <input
-        v-if="index === editIndex"
-        type="text"
-        v-model="editWord"
-        @keydown.enter="edit(index)"
-      />
-      <button @click="editButton(index)">edit</button>
-      <button @click="del(index)">X</button>
-    </li>
-    <input type="text" v-model="word" @keydown.enter="enter()" />
+    <NoteText
+      v-for="(i, index) in txts"
+      :key="i.id"
+      :i="i"
+      :index="index"
+      @del="del"
+      @edit="edit"
+    ></NoteText>
   </ul>
+  <input type="text" v-model="word" @keydown.enter="enter()" />
   <div>
     {{ circle }}
   </div>
 </template>
 
 <script lang="ts">
+import NoteText from "@/components/NoteText.vue";
 import { v4 as uuidv4 } from "uuid";
+
 export default {
   methods: {
     enter() {
@@ -48,17 +44,12 @@ export default {
     del(index: number) {
       this.txts.splice(index, 1);
     },
-    edit(index: number) {
+    edit(index: number, editWord: string) {
       this.txts.splice(index, 1, {
         id: this.txts[index].id,
-        msg: this.editWord,
+        msg: editWord,
         date: new Date(Date.now()).toLocaleString(),
       });
-      this.editWord = "";
-      this.editIndex = -1;
-    },
-    editButton(index: number) {
-      this.editIndex = index;
     },
     srh() {
       this.srhResult = this.txts.filter((value) =>
@@ -70,8 +61,6 @@ export default {
     return {
       txts: [] as { id: string; msg: string; date: string }[],
       word: "",
-      editWord: "",
-      editIndex: -1,
       search: "",
       srhResult: [] as { id: string; msg: string; date: string }[],
     };
@@ -85,6 +74,9 @@ export default {
         return "湯圓";
       }
     },
+  },
+  components: {
+    NoteText,
   },
 };
 </script>
