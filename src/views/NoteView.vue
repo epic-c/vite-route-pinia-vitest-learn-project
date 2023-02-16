@@ -29,6 +29,11 @@
 import NoteText from "@/components/NoteText.vue";
 import { v4 as uuidv4 } from "uuid";
 
+interface MessageType {
+  id: string;
+  msg: string;
+  date: string;
+}
 export default {
   methods: {
     enter() {
@@ -59,10 +64,10 @@ export default {
   },
   data() {
     return {
-      txts: [] as { id: string; msg: string; date: string }[],
+      txts: [] as MessageType[],
       word: "",
       search: "",
-      srhResult: [] as { id: string; msg: string; date: string }[],
+      srhResult: [] as MessageType[],
     };
   },
   computed: {
