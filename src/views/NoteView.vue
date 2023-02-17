@@ -1,6 +1,6 @@
 <template>
   <h1>note</h1>
-  <NoteSearch :srh-result="srhResult" @srh-msg="srh" />
+  <NoteSearch :txts="txts" />
   <hr />
   <ul>
     <NoteText
@@ -46,16 +46,11 @@ export default {
         date: new Date(Date.now()).toLocaleString(),
       });
     },
-    srh(search: string) {
-      this.srhResult = this.txts.filter((value) => value.msg.includes(search));
-    },
   },
   data() {
     return {
       txts: [] as MessageType[],
       word: "",
-      search: "",
-      srhResult: [] as MessageType[],
     };
   },
   computed: {

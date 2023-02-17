@@ -9,16 +9,21 @@
 </template>
 
 <script lang="ts">
+import type { MessageType } from "@/model/message";
+
 export default {
-  props: ["srhResult"],
+  props: ["txts"],
   data() {
     return {
       search: "",
+      srhResult: [] as MessageType[],
     };
   },
   methods: {
     srh() {
-      this.$emit("srh-msg", this.search);
+      this.srhResult = this.txts.filter((value: MessageType) =>
+        value.msg.includes(this.search)
+      );
       this.search = "";
     },
   },
