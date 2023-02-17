@@ -1,13 +1,6 @@
 <template>
   <h1>note</h1>
-
-  <ul>
-    <li v-for="i in srhResult" :key="i.id">
-      {{ `${i.msg} ----- ${i.date}` }}
-    </li>
-  </ul>
-  <input type="text" v-model="search" />
-  <button @click="srh()">search</button>
+  <NoteSearch :srh-result="srhResult" @srh-msg="srh" />
   <hr />
   <ul>
     <NoteText
@@ -17,7 +10,7 @@
       :index="index"
       @del="del"
       @edit="edit"
-    ></NoteText>
+    />
   </ul>
   <input type="text" v-model="word" @keydown.enter="enter()" />
   <div>
@@ -26,14 +19,11 @@
 </template>
 
 <script lang="ts">
+import NoteSearch from "@/components/NoteSearch.vue";
 import NoteText from "@/components/NoteText.vue";
+import type { MessageType } from "@/model/message";
 import { v4 as uuidv4 } from "uuid";
 
-interface MessageType {
-  id: string;
-  msg: string;
-  date: string;
-}
 export default {
   methods: {
     enter() {
@@ -56,10 +46,8 @@ export default {
         date: new Date(Date.now()).toLocaleString(),
       });
     },
-    srh() {
-      this.srhResult = this.txts.filter((value) =>
-        value.msg.includes(this.search)
-      );
+    srh(search: string) {
+      this.srhResult = this.txts.filter((value) => value.msg.includes(search));
     },
   },
   data() {
@@ -82,6 +70,7 @@ export default {
   },
   components: {
     NoteText,
+    NoteSearch,
   },
 };
 </script>
