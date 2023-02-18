@@ -35,35 +35,32 @@ export default {
   },
   methods: {
     getDayName(day: number) {
-      const d = () => {
-        switch (day) {
-          case 0:
-            return "日";
-          case 1:
-            return "一";
-          case 2:
-            return "二";
-          case 3:
-            return "三";
-          case 4:
-            return "四";
-          case 5:
-            return "五";
-          case 6:
-            return "六";
-          default:
-            return "解析錯誤";
-        }
-      };
-      return `星期${d()}`;
+      switch (day) {
+        case 0:
+          return "星期日";
+        case 1:
+          return "星期一";
+        case 2:
+          return "星期二";
+        case 3:
+          return "星期三";
+        case 4:
+          return "星期四";
+        case 5:
+          return "星期五";
+        case 6:
+          return "星期六";
+        default:
+          return "解析錯誤";
+      }
     },
   },
   created() {
     for (let i = 0; i < 7; i++) {
-      const tempDate = new Date();
-      tempDate.setDate(tempDate.getDate() - (tempDate.getDay() - (i + 1)));
+      const date = new Date();
+      date.setDate(date.getDate() - (date.getDay() - (i + 1)));
       this.calendar.push({
-        date: tempDate,
+        date,
         notes: [],
       });
     }
