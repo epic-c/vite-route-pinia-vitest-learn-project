@@ -9,6 +9,14 @@
       :i="i"
       :index="index"
       @del="del"
+    />
+    <NoteText
+      v-for="(i, index) in txts"
+      :key="i.id"
+      :i="i"
+      :index="index"
+      :can-eidt="true"
+      @del="del"
       @edit="edit"
     />
   </ul>

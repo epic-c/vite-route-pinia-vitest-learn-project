@@ -10,14 +10,16 @@
       v-model="editWord"
       @keydown.enter="edit(index)"
     />
-    <button @click="editButton = !editButton">edit</button>
+    <button v-if="canEidt ?? false" @click="editButton = !editButton">
+      edit
+    </button>
     <button @click="del(index)">X</button>
   </li>
 </template>
 
 <script lang="ts">
 export default {
-  props: ["i", "index"],
+  props: ["i", "index", "canEidt"],
   data() {
     return {
       editWord: "",

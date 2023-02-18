@@ -15,6 +15,7 @@
           >Router Link Sample (param and query string)</RouterLink
         >
         <RouterLink to="/note">Note</RouterLink>
+        <RouterLink to="/calendar">Calendar</RouterLink>
       </nav>
       <!-- TODO Router function -->
       <nav>
