@@ -57,23 +57,15 @@ export default {
       };
       return `星期${d()}`;
     },
-
-    setCalendar(i: number) {
-      const tempDate = new Date();
-      tempDate.setDate(tempDate.getDate() - (tempDate.getDay() - (i + 1)));
-      this.calendar[i] = {
-        date: tempDate,
-        notes: [],
-      };
-    },
   },
   created() {
-    const today = new Date().getDay();
-    for (let i = 0; i < today; i++) {
-      this.setCalendar(i);
-    }
-    for (let i = today; i <= 6; i++) {
-      this.setCalendar(i);
+    for (let i = 0; i < 7; i++) {
+      const tempDate = new Date();
+      tempDate.setDate(tempDate.getDate() - (tempDate.getDay() - (i + 1)));
+      this.calendar.push({
+        date: tempDate,
+        notes: [],
+      });
     }
   },
 };
