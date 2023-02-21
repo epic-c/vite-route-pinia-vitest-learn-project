@@ -8,15 +8,7 @@
       :key="i.id"
       :i="i"
       :index="index"
-      @del="del"
-      :can-eidt="true"
-    />
-    <NoteText
-      v-for="(i, index) in txts"
-      :key="i.id"
-      :i="i"
-      :index="index"
-      :can-eidt="true"
+      :can-edit="true"
       @del="del"
       @edit="edit"
     />

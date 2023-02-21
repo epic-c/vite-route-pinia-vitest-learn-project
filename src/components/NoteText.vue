@@ -10,9 +10,7 @@
       v-model="editWord"
       @keydown.enter="edit(index)"
     />
-    <button v-if="canEidt ?? false" @click="editButton = !editButton">
-      edit
-    </button>
+    <button v-if="canEdit" @click="editButton = !editButton">edit</button>
     <button @click="del(index)">X</button>
   </li>
 </template>
@@ -21,11 +19,14 @@
 import type { MessageType } from "@/model/message";
 import { ref } from "vue";
 
-const props = defineProps<{
-  i: MessageType;
-  index: number;
-  canEidt: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    i: MessageType;
+    index: number;
+    canEdit?: boolean;
+  }>(),
+  { canEdit: false }
+);
 const emit = defineEmits<{
   (e: "del", index: number): void;
   (e: "edit", index: number, editWord: string): void;

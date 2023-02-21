@@ -10,7 +10,7 @@
 import CompositionApiSubComponent from "@/components/CompositionApiSubComponent.vue";
 import { computed, onBeforeMount, reactive, ref } from "vue";
 
-const props = defineProps<{ id: string }>();
+const props = defineProps<{ id?: string }>();
 const emit = defineEmits<{
   (e: "e", id: string): void;
 }>();
