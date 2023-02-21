@@ -1,9 +1,9 @@
 <template>
   <li>
-    <h1 v-if="i.msg === '!!!'">
-      {{ `${i.msg} ----- ${i.date}` }}
+    <h1 v-if="props.i.msg === '!!!'">
+      {{ `${props.i.msg} ----- ${props.i.date}` }}
     </h1>
-    <span v-else>{{ `${i.msg} ----- ${i.date}` }}</span>
+    <span v-else>{{ `${props.i.msg} ----- ${props.i.date}` }}</span>
     <input
       v-if="editButton"
       type="text"
@@ -17,24 +17,27 @@
   </li>
 </template>
 
-<script lang="ts">
-export default {
-  props: ["i", "index", "canEidt"],
-  data() {
-    return {
-      editWord: "",
-      editButton: false,
-    };
-  },
-  methods: {
-    del(index: number) {
-      this.$emit("del", index);
-    },
-    edit(index: number) {
-      this.$emit("edit", index, this.editWord);
-      this.editWord = "";
-      this.editButton = false;
-    },
-  },
-};
+<script setup lang="ts">
+import type { MessageType } from "@/model/message";
+import { ref } from "vue";
+
+const props = defineProps<{
+  i: MessageType;
+  index: number;
+  canEidt: boolean;
+}>();
+const emit = defineEmits<{
+  (e: "del", index: number): void;
+  (e: "edit", index: number, editWord: string): void;
+}>();
+const editWord = ref<string>("");
+const editButton = ref<boolean>(false);
+function del(index: number) {
+  emit("del", index);
+}
+function edit(index: number) {
+  emit("edit", index, editWord.value);
+  editWord.value = "";
+  editButton.value = false;
+}
 </script>

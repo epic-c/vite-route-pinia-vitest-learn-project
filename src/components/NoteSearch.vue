@@ -8,24 +8,18 @@
   <button @click="srh()">search</button>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { MessageType } from "@/model/message";
+import { ref } from "vue";
 
-export default {
-  props: ["txts"],
-  data() {
-    return {
-      search: "",
-      srhResult: [] as MessageType[],
-    };
-  },
-  methods: {
-    srh() {
-      this.srhResult = this.txts.filter((value: MessageType) =>
-        value.msg.includes(this.search)
-      );
-      this.search = "";
-    },
-  },
-};
+const props = defineProps<{ txts: MessageType[] }>();
+const search = ref("");
+const srhResult = ref<MessageType[]>([]);
+
+function srh() {
+  srhResult.value = props.txts.filter((value) =>
+    value.msg.includes(search.value)
+  );
+  search.value = "";
+}
 </script>

@@ -24,7 +24,7 @@ function add() {
   num.value++;
   data.message = "123";
   data.date = "123";
-  emit("e", true);
+  emit("e", "123");
 }
 
 const mul2 = computed(() => num.value * 2);
