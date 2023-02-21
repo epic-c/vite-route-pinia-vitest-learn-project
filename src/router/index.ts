@@ -16,7 +16,13 @@ const router = createRouter({
     {
       path: "/compositionApi",
       name: "compositionApi",
-      component: () => import("../views/CompositionApi.vue"),
+      component: () => import("../views/CompositionApiView.vue"),
+    },
+    {
+      path: "/compositionApi/:id",
+      name: "compositionApiIp",
+      props: true,
+      component: () => import("../views/CompositionApiView.vue"),
     },
     {
       path: "/calendar",
