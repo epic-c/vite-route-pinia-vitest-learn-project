@@ -3,7 +3,7 @@
 
   <div>{{ num }}</div>
   <div>{{ mul2 }}</div>
-  <CompositionApiSubComponent />
+  <CompositionApiSubComponent :msg="`test`" @emit-sample="emitSample" />
   <button @click="add()">{{ num }}</button>
 </template>
 <script setup lang="ts">
@@ -27,6 +27,9 @@ function add() {
   emit("e", "123");
 }
 
+function emitSample(param1: string, param2: number) {
+  console.log(`${param1}, ${param2}`);
+}
 const mul2 = computed(() => num.value * 2);
 
 onBeforeMount(() => {
