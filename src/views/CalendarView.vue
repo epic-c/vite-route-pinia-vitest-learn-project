@@ -18,14 +18,31 @@
     </thead>
     <tbody>
       <tr>
-        <td v-for="(item, index) in calendar" :key="item.date.getDay()">
-          <input
-            type="text"
-            v-model="msg[index]"
-            @keydown.enter="enter(index)"
-          />
-          <div v-for="note in item.notes" :key="note.id">
-            {{ note.noteMsg }}
+        <td
+          valign="top"
+          v-for="(item, index) in calendar"
+          :key="item.date.getDay()"
+        >
+          <div style="background-color: darkmagenta">
+            <input type="time" />
+            <input
+              type="text"
+              v-model="msg[index]"
+              @keydown.enter="enter(index)"
+            />
+          </div>
+          <div
+            style="background-color: brown"
+            v-for="note in item.notes"
+            :key="note.id"
+          >
+            <span>
+              {{ note.time }}
+            </span>
+            <hr />
+            <span>
+              {{ note.noteMsg }}
+            </span>
           </div>
         </td>
       </tr>
