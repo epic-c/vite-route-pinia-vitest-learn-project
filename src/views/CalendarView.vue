@@ -24,10 +24,16 @@
           :key="item.date.getDay()"
         >
           <div style="background-color: darkmagenta">
-            <input type="time" />
+            <label for="">Start Time</label>
+            <br />
+            <input type="time" v-model="msg[index].startTime" />
+            <br />
+            <label for="">End Time</label>
+            <br />
+            <input type="time" v-model="msg[index].endTime" />
             <input
               type="text"
-              v-model="msg[index]"
+              v-model="msg[index].msg"
               @keydown.enter="enter(index)"
             />
           </div>
@@ -37,11 +43,15 @@
             :key="note.id"
           >
             <span>
-              {{ note.time }}
+              {{ "start time : " + note.startTime }}
             </span>
             <hr />
             <span>
               {{ note.noteMsg }}
+            </span>
+            <hr />
+            <span>
+              {{ "end time : " + note.endTime }}
             </span>
           </div>
         </td>
@@ -54,13 +64,14 @@ import { ref } from "vue";
 import { v4 } from "uuid";
 
 interface Note {
-  time: string;
+  startTime: string;
   noteMsg: string;
+  endTime: string;
   id: string;
 }
 
 const calendar = ref<{ date: Date; notes: Note[] }[]>([]);
-const msg = ref<string[]>([]);
+const msg = ref<{ msg: string; startTime: string; endTime: string }[]>([]);
 function getDayName(day: number) {
   switch (day) {
     case 0:
@@ -82,13 +93,21 @@ function getDayName(day: number) {
   }
 }
 function enter(index: number) {
-  if (msg.value[index].length > 0) {
+  if (
+    msg.value[index].msg.length > 0 &&
+    msg.value[index].startTime.length > 0 &&
+    msg.value[index].endTime.length > 0 &&
+    getISOTime(index, msg.value[index].startTime) <
+      getISOTime(index, msg.value[index].endTime)
+  ) {
     calendar.value[index].notes.push({
-      time: new Date(Date.now()).toLocaleString(),
-      noteMsg: msg.value[index],
+      startTime: msg.value[index].startTime,
+      noteMsg: msg.value[index].msg,
+      endTime: msg.value[index].endTime,
       id: v4(),
     });
-    msg.value[index] = "";
+    msg.value[index].msg = "";
+    msg.value[index].endTime = "";
   }
 }
 for (let i = 0; i < 7; i++) {
@@ -98,7 +117,16 @@ for (let i = 0; i < 7; i++) {
     date,
     notes: [] as Note[],
   });
-  msg.value.push("");
+  msg.value.push({ msg: "", startTime: "", endTime: "" });
+}
+
+function getISOTime(index: number, time: string) {
+  return Date.parse(
+    calendar.value[index].date.toISOString().split("T")[0] +
+      "T" +
+      time +
+      ":00.000Z"
+  );
 }
 </script>
 
