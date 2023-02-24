@@ -16,6 +16,7 @@
         >
         <RouterLink to="/note">Note</RouterLink>
         <RouterLink to="/calendar">Calendar</RouterLink>
+        <RouterLink to="/leaderboard">Leaderboard</RouterLink>
       </nav>
       <!-- TODO Router function -->
       <nav>

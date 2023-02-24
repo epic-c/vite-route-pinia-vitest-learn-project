@@ -35,6 +35,11 @@ const router = createRouter({
       component: () => import("../views/NoteView.vue"),
     },
     {
+      path: "/leaderboard",
+      name: "leaderboard",
+      component: () => import("../views/LeaderboardView.vue"),
+    },
+    {
       // TODO 動態路由 (params)
       path: "/router/:p",
       name: "router",
