@@ -160,5 +160,6 @@ onBeforeMount(() => {
   console.log(value3);
 
   // TODO 在這裡完成 readerloader 陣列的組合
+  // array filter?, sort, find, map ....
 });
 </script>
