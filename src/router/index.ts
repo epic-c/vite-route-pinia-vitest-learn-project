@@ -40,6 +40,11 @@ const router = createRouter({
       component: () => import("../views/LeaderboardView.vue"),
     },
     {
+      path: "/axios",
+      name: "axios",
+      component: () => import("../views/AxiosView.vue"),
+    },
+    {
       // TODO 動態路由 (params)
       path: "/router/:p",
       name: "router",
