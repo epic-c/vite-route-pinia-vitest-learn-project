@@ -9,11 +9,9 @@
       :i="i"
       :index="index"
       :can-edit="true"
-      @del="del"
-      @edit="edit"
     />
   </ul>
-  <input type="text" v-model="word" @keydown.enter="enter()" />
+  <input type="text" v-model="word" @keydown.enter="enterMsg()" />
   <div>
     {{ circle }}
   </div>
@@ -22,18 +20,15 @@
 <script lang="ts">
 import NoteSearch from "@/components/NoteSearch.vue";
 import NoteText from "@/components/NoteText.vue";
-import type { MessageType } from "@/model/message";
-import { v4 as uuidv4 } from "uuid";
+import { mapState, mapActions } from "pinia";
+import { useNoteStore } from "@/stores/note";
 
 export default {
   methods: {
-    enter() {
+    ...mapActions(useNoteStore, ["enter"]),
+    enterMsg() {
       if (this.word.length > 0) {
-        this.txts.push({
-          id: uuidv4(),
-          msg: this.word,
-          date: new Date(Date.now()).toLocaleString(),
-        });
+        this.enter(this.word);
         this.word = "";
       }
     },
@@ -50,11 +45,11 @@ export default {
   },
   data() {
     return {
-      txts: [] as MessageType[],
       word: "",
     };
   },
   computed: {
+    ...mapState(useNoteStore, ["txts"]),
     circle() {
       const found = this.txts.find((msg) => msg.msg === "元宵節");
       if (found === undefined) {
