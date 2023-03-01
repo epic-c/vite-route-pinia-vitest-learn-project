@@ -155,11 +155,33 @@ const readerloader = ref<
 >([]);
 
 onBeforeMount(() => {
-  console.log(value1);
-  console.log(value2);
-  console.log(value3);
+  readerloader.value = value1
+    .map((v1) => {
+      const v2 =
+        value2.find((v2) => v2.country === v1.country) || ({} as Value2);
+      const v3 =
+        value3.find((v3) => v3.country === v1.country) || ({} as Value3);
 
-  // TODO 在這裡完成 readerloader 陣列的組合
-  // array filter?, sort, find, map ....
+      const data = {
+        globalEthics: v1.globalEthics,
+        externalPeace: v1.externalPeace,
+        armamentInvestment: v2.armamentInvestment,
+        internationalExchange: v2.internationalExchange,
+        internationalAid: v3.internationalAid,
+      };
+
+      const keys = Object.keys(data);
+      const numKeys = keys.filter(
+        (key) => typeof (data as any)[key] === "number"
+      );
+      const sum = numKeys.reduce((acc, key) => acc + (data as any)[key], 0);
+
+      return {
+        country: v1.country,
+        averageScore: sum / numKeys.length,
+        data,
+      };
+    })
+    .sort((x, y) => x.averageScore - y.averageScore);
 });
 </script>
